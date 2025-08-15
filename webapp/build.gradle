@@ -71,6 +71,14 @@ dependencies {
     testImplementation "org.spockframework:spock-core"
 }
 
+tasks.named('bootRun') {
+    doFirst {
+        classpath = classpath.filter { file ->
+            !file.path.contains('base.jar')  // Exclude the JAR to avoid duplicates
+        } + project(':base').sourceSets.main.output  // Add classes and resources output
+    }
+}
+
 compileJava.options.release = 17
 
 tasks.withType(Test) {

@@ -41,7 +41,6 @@ dependencies {
     testAndDevelopmentOnly "org.webjars.npm:bootstrap-icons"
     testAndDevelopmentOnly "org.webjars.npm:jquery"
     implementation platform("org.apache.grails:grails-bom:$grailsVersion")
-    implementation project(":base")
     implementation "org.apache.grails:grails-core"
     implementation "org.apache.grails:grails-data-hibernate5"
     implementation "org.apache.grails:grails-databinding"

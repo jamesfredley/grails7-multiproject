@@ -2,7 +2,13 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-           url = 'https://repo.grails.org/grails/restricted'
+            url = 'https://repo.grails.org/grails/restricted'
+        }
+        maven {
+            url = 'https://repository.apache.org/content/groups/snapshots'
+            content {
+                includeVersionByRegex('org[.]apache[.](grails|groovy).*', '.*', '.*-SNAPSHOT')
+            }
         }
     }
     dependencies { // Not Published to Gradle Plugin Portal
@@ -30,7 +36,13 @@ group = "com.example"
 repositories {
     mavenCentral()
     maven {
-       url = 'https://repo.grails.org/grails/restricted'
+        url = 'https://repo.grails.org/grails/restricted'
+    }
+    maven {
+        url = 'https://repository.apache.org/content/groups/snapshots'
+        content {
+            includeVersionByRegex('org[.]apache[.](grails|groovy).*', '.*', '.*-SNAPSHOT')
+        }
     }
 }
 

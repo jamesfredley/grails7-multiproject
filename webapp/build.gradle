@@ -85,11 +85,23 @@ dependencies {
 }
 
 tasks.named('bootRun') {
-    doFirst {
-        classpath = classpath.filter { file ->
-            !file.path.contains('base.jar')  // Exclude the JAR to avoid duplicates
-        } + project(':base').sourceSets.main.output  // Add classes and resources output
+    configurations.named("runtimeClasspath") {
+        attributes {
+            attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE,
+                    objects.named(LibraryElements, LibraryElements.CLASSES))
+        }
     }
+    configurations.matching { it.name == "testRuntimeClasspath" }.all {
+        attributes {
+            attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE,
+                    objects.named(LibraryElements, LibraryElements.CLASSES))
+        }
+    }
+}
+
+// Ensure the Groovy compiler configuration runs after AST classes are available from the base module
+tasks.named("configureGroovyCompilerGrailsCore") {
+    dependsOn(project(":base").tasks.named("copyAstClasses"))
 }
 
 compileJava.options.release = 17
